@@ -45,7 +45,7 @@ int main()
                         t--;
                     }
                     if (t == 0)
-                        w[i] =
+                        w[i] = p[t] - p[t - 1] - cnt + 1
                 }
             }
         }
