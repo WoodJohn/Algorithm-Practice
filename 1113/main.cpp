@@ -39,10 +39,14 @@ int cmp(const void *a, const void *b)
 {
     point p = *((point *)a);
     point q = *((point *)b);
+    if (p.x == lb.x && p.y == lb.y)
+        return 1;
+    if (q.x == lb.x && q.y == lb.y)
+        return -1;
     if (p.x == lb.x)
     {
         if (q.x == lb.x)
-            return dis(p, lb) > dis(q, lb);
+            return dis(p, lb) > dis(q, lb) ? 1 : -1;
         double angle = atan((double)(q.y - lb.y) / (double)(q.x - lb.x));
         if (angle >= 0)
             return 1;
@@ -67,11 +71,11 @@ int cmp(const void *a, const void *b)
     }
     if (angle1 * angle2 > 0)
     {
-        return angle1 > angle2;
+        return angle1 > angle2 ? 1 : -1;
     }
     if (angle1 * angle2 == 0)
-        return angle1 != 0.0;
-    return angle1 < 0;
+        return angle1 != 0.0 ? 1 : -1;
+    return angle1 < 0 ? 1 : -1;
 }
 
 bool leftTurn(point p0, point p1, point p2)
@@ -101,12 +105,12 @@ int main(int argc, const char * argv[])
     point tt = points[0];
     points[0] = lb;
     points[pos] = tt;
-    qsort(points + 1, n - 1, sizeof(point), cmp);
+    qsort(points, n, sizeof(point), cmp);
+    st.push(lb);
     st.push(points[0]);
     st.push(points[1]);
-    st.push(points[2]);
-    int cur = 3;
-    while (cur < n)
+    int cur = 2;
+    while (cur < n - 1)
     {
         point c = points[cur++];
         point top = st.top();
