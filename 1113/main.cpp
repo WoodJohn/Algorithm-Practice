@@ -39,10 +39,24 @@ int cmp(const void *a, const void *b)
 {
     point p = *((point *)a);
     point q = *((point *)b);
+    if (p.x == lb.x)
+    {
+        if (q.x == lb.x)
+            return dis(p, lb) > dis(q, lb);
+        double angle = atan((double)(q.y - lb.y) / (double)(q.x - lb.x));
+        if (angle >= 0)
+            return 1;
+        return -1;
+    }
+    if (q.x == lb.x)
+    {
+        double angle = atan((double)(p.y - lb.y) / (double)(p.x - lb.x));
+        if (angle >= 0)
+            return -1;
+        return 1;
+    }
     double angle1 = atan((double)(p.y - lb.y) / (double)(p.x - lb.x));
     double angle2 = atan((double)(q.y - lb.y) / (double)(q.x - lb.x));
-    if (angle1 > angle2)
-        return 1;
     if (angle1 == angle2)
     {
         double d1 = dis(p, lb);
@@ -51,7 +65,13 @@ int cmp(const void *a, const void *b)
             return 1;
         return -1;
     }
-    return -1;
+    if (angle1 * angle2 > 0)
+    {
+        return angle1 > angle2;
+    }
+    if (angle1 * angle2 == 0)
+        return angle1 != 0.0;
+    return angle1 < 0;
 }
 
 bool leftTurn(point p0, point p1, point p2)
@@ -85,12 +105,6 @@ int main(int argc, const char * argv[])
     st.push(points[0]);
     st.push(points[1]);
     st.push(points[2]);
-    if (!leftTurn(points[0], points[1], points[2]))
-    {
-        st.pop();
-        st.pop();
-        st.push(points[2]);
-    }
     int cur = 3;
     while (cur < n)
     {
@@ -100,14 +114,15 @@ int main(int argc, const char * argv[])
         while (!leftTurn(sec, top, c))
         {
             st.pop();
+            if (st.size() == 1)
+                break;
             top = st.top();
             sec = getSecond();
         }
         st.push(c);
     }
-    int nodes = st.size();
     double length = 0.0;
-    length += (nodes - 2) * PI * l;
+    length += 2 * PI * l;
     point start = st.top();
     point cc = st.top();
     st.pop();
