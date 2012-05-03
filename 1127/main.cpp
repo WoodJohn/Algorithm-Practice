@@ -4,6 +4,16 @@ using namespace std;
 
 bool g[15][15];
 
+inline int max(int a, int b)
+{
+    return a > b ? a : b;
+}
+
+inline int min(int a, int b)
+{
+    return a < b ? a : b;
+}
+
 struct straw
 {
     int x1, x2, y1, y2;
@@ -29,8 +39,17 @@ bool check(int a, int b)
         }
         else
         {
+            double y;
             double x = double((s2.y1 * s2.x2 - s2.y2 * s2.x1) * (s1.x1 - s1.x2) - (s1.y1 * s1.x2 - s1.y2 * s1.x1) * (s2.x1 - s2.x2)) / (double)((s1.y2 - s1.y1) * (s2.x1 - s2.x2) - (s2.y2 - s2.y1) * (s1.x1 - s1.x2));
-            return (x >= s1.x1 && x <= s1.x2 && x >= s2.x1 && x <= s2.x2);
+            if (s1.x1 != s1.x2)
+            {
+                y = (double)(s1.y1 * s1.x2 - s1.x1 * s1.y2 + x * (s1.y2 - s1.y1)) / (double)(s1.x2 - s1.x1);
+            }
+            else
+            {
+                y = (double)(s2.y1 * s2.x2 - s2.x1 * s2.y2 + x * (s2.y2 - s2.y1)) / (double)(s2.x2 - s2.x1);
+            }
+            return (x >= s1.x1 && x <= s1.x2 && x >= s2.x1 && x <= s2.x2 && y >= min(s1.y1, s1.y2) && y <= max(s1.y1, s1.y2) && y >= min(s2.y1, s2.y2) && y <= max(s2.y1, s2.y2));
         }
     }
 }
@@ -80,7 +99,7 @@ int main()
                     if (g[i][j])
                         continue;
                     if (g[i][k] && g[k][j])
-                        g[i][j] = g[j][k] = true;
+                        g[i][j] = g[j][i] = true;
                 }
             }
         }
@@ -92,7 +111,7 @@ int main()
             if (g[a][b])
                 cout << "CONNECTED" << endl;
             else
-                cout << "NOT CONNNECTED" << endl;
+                cout << "NOT CONNECTED" << endl;
         }
     }
     return 0;
