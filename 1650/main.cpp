@@ -20,6 +20,8 @@ int main()
             t = (int)q;
         if (t < 1)
             t = 1;
+        if (t > l)
+            t = l;
         q = t / double(i);
         if (abs(q - p) < mMin)
         {
