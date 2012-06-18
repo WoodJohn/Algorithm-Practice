@@ -15,7 +15,7 @@ void calc()
     int mMax = 1;
     for (i = 1; i < cnt; i++)
     {
-        int m = 0;
+        int m = 1;
         for (j = 0; j < i; j++)
         {
             if (num[j] >= num[i])
