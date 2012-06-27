@@ -25,20 +25,36 @@ int main()
                 sum += s[i] - '0';
         }
     }
-    sum %= 11;
-    sum = 11 - sum;
-    if (sum == 11)
-        sum = 0;
-    if (sum % (10 - m))
-        cout << -1 << endl;
+    if (m < 9)
+    {
+        int i;
+        for (i = 0; i < 10; i++)
+        {
+            if ((sum + i * (10 - m)) % 11 == 0)
+            {
+                cout << i << endl;
+                break;
+            }
+        }
+        if (i == 10)
+            cout << -1 << endl;
+    }
     else
     {
-        if (m == 9 && sum == 10)
+        int i;
+        for (i = 0; i <= 10; i++)
         {
-            cout << 'X' << endl;
+            if ((sum + i * (10 - m)) % 11 == 0)
+            {
+                if (i < 10)
+                    cout << i << endl;
+                else
+                    cout << 'X' << endl;
+                break;
+            }
         }
-        else
-            cout << sum / (10 - m) << endl;
+        if (i == 11)
+            cout << -1 << endl;
     }
     return 0;
 }
