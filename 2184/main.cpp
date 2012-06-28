@@ -10,7 +10,6 @@ struct cow
 {
     int s;
     int f;
-    cow(int a = 0, int b = 0) : s(a), f(b){}
 }c[105];
 
 bool cmp(cow a, cow b)
@@ -60,7 +59,7 @@ int main()
     cin >> n;
     int i;
     for (i = 0; i < 2 * OFFSET + 5; i++)
-        dp[i] = -1000;
+        dp[i] = -OFFSET;
     v.clear();
     mMax = 0;
     for (i = 0; i < n; i++)
@@ -68,13 +67,13 @@ int main()
         cin >> c[i].s >> c[i].f;
         calc(i);
     }
-    set<int>::iterator it;
-    ofstream fout;
-    fout.open("out.txt", ios::out);
-    for (it = v.begin(); it != v.end(); it++)
-    {
-        fout << *it << ' ' << dp[*it + OFFSET] << endl;
-    }
+//    set<int>::iterator it;
+//    ofstream fout;
+//    fout.open("out.txt", ios::out);
+//    for (it = v.begin(); it != v.end(); it++)
+//    {
+//        fout << *it << ' ' << dp[*it + OFFSET] << endl;
+//    }
     cout << mMax << endl;
     return 0;
 }
