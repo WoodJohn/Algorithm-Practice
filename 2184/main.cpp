@@ -7,7 +7,6 @@ struct cow
 {
     int s;
     int f;
-    cow(int a = 0, int b = 0) : s(a), f(b){}
 }c[105];
 
 int dp[2 * OFFSET + 5]; //dp[i]表示其中TS值为i时另一个的最大值，非常巧妙。由于i可能为负值，需要加上一个offset
@@ -72,6 +71,10 @@ int main()
     int i;
     for (i = 0; i < 2 * OFFSET + 5; i++)
         dp[i] = -OFFSET;
+<<<<<<< HEAD
+    v.clear();
+=======
+>>>>>>> dd4d2708498028fcb3520ee82e6129bda88586ea
     mMax = 0;
     l = OFFSET;
     r = -OFFSET;
@@ -80,11 +83,21 @@ int main()
         cin >> c[i].s >> c[i].f;
         calc(i);
     }
+<<<<<<< HEAD
+//    set<int>::iterator it;
+//    ofstream fout;
+//    fout.open("out.txt", ios::out);
+//    for (it = v.begin(); it != v.end(); it++)
+//    {
+//        fout << *it << ' ' << dp[*it + OFFSET] << endl;
+//    }
+=======
     for (i = 0; i <= OFFSET; i++)
     {
         if (dp[i + OFFSET] >= 0 && dp[i + OFFSET] + i > mMax)
             mMax = dp[i + OFFSET] + i;
     }
+>>>>>>> dd4d2708498028fcb3520ee82e6129bda88586ea
     cout << mMax << endl;
     return 0;
 }
