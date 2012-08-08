@@ -45,6 +45,23 @@ bool checkmate(int qx, int qy)
         return false;
 }
 
+bool checkBlock(int qx, int qy)
+{
+    if (qx == k1.x && qx == q.x && ((qy > k1.y && k1.y > q.y) || (qy < k1.y && k1.y < q.y)))
+        return true;
+    if (qy == k1.y && qy == q.y && ((qx > k1.x && k1.x > q.x) || (qx < k1.x && k1.x < q.x)))
+        return true;
+    if (abs(double(qx - k1.x)) == abs(double(qy - k1.y)) && abs(double(qx - q.x)) == abs(double(qy - q.y)))
+    {
+        if ((qx - k1.x) * (qx - q.x) > 0 && (qy - k1.y) * (qy - q.y) > 0)
+        {
+            if ((k1.x < qx && k1.x > q.x) || (k1.x > qx && k1.x < q.x))
+                return true;
+        }
+    }
+    return false;
+}
+
 bool find()
 {
     for (int x = 1; x <= 8; x++)
@@ -57,11 +74,7 @@ bool find()
                 {
                     if (x == k2.x || y == k2.y || abs(double(x - k2.x)) == abs(double(y - k2.y)))
                     {
-                        if (x == k2.x)
-                        {
-
-                        }
-                        if (checkmate(x, y))
+                        if (!checkBlock(x, y) && checkmate(x, y))
                             return true;
                     }
                 }
