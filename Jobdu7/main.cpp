@@ -44,10 +44,10 @@ char *add(char *a, char *b)
 
 char *f(int a)
 {
-    if (a == 0)
-        return "1";
     if (a == 1)
         return "1";
+    if (a == 2)
+        return "2";
     if (strcmp(dp[a], "0"))
         return dp[a];
     strcpy(dp[a], add(f(a - 1), f(a - 2)));
@@ -62,6 +62,7 @@ int main()
         strcpy(dp[i], "0");
     }
     strcpy(dp[1], "1");
+    strcpy(dp[2], "2");
     while (cin >> n)
         cout << f(n) << endl;
     return 0;
