@@ -2,7 +2,7 @@
 #include <stdio.h>
 using namespace std;
 
-int m, n;
+int m,n;
 int num[1005][1005];
 
 void out(int y, int x, int w, int h)
