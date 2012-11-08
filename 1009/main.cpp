@@ -14,6 +14,7 @@ inline int key(int a)
 
 vector <int> ht[MOD];
 vector <int> record;
+vector <int> result;
 
 bool find(int a)
 {
@@ -150,7 +151,7 @@ void solve()
 {
     printf("%d\n", width);
     sort(record.begin(), record.end(), less<int>());
-    vector<int> result;
+    result.clear();
     for (int i = 0; i < record.size(); ++i)
     {
         result.push_back(calcPoint(record[i]));
@@ -199,16 +200,19 @@ int main()
         {
             int row = posToLine(segs[i].start);
             int col = posToCol(segs[i].start);
+            int r = row;
             handlePoint(row, col);
             row = posToLine(segs[i].start + segs[i].len - 1);
             col = posToCol(segs[i].start + segs[i].len - 1);
             handlePoint(row, col);
-        }
-        int totalRow = posToLine(segs[cnt - 1].start + segs[cnt - 1].len - 1) + 1;
-        for (int i = 0; i < totalRow; ++i)
-        {
-            handlePoint(i, 0);
-            handlePoint(i, width - 1);
+
+            handlePoint(r, 0);
+            handlePoint(r, width - 1);
+            handlePoint(r + 1, 0);
+
+            handlePoint(row, 0);
+            handlePoint(row, width - 1);
+            handlePoint(row - 1, width - 1);
         }
         solve();
     }
